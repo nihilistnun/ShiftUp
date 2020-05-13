@@ -22,10 +22,7 @@ class ShiftsFragment : Fragment() {
         homeViewModel =
             ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_shifts, container, false)
-        val textView: TextView = root.findViewById(R.id.text_shifts)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+
         return root
     }
 }
