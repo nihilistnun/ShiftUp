@@ -1,4 +1,4 @@
-package com.nicholasnkk.shiftup.ui.login.ui.shifts
+package com.nicholasnkk.shiftup.ui.login.ui.next
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.nicholasnkk.shiftup.R
 
-class ShiftsFragment : Fragment() {
+class NextFragment : Fragment() {
 
-    private lateinit var homeViewModel: ShiftsViewModel
+    private lateinit var homeViewModel: NextViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -18,8 +18,8 @@ class ShiftsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         homeViewModel =
-            ViewModelProviders.of(this).get(ShiftsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_shifts, container, false)
+            ViewModelProviders.of(this).get(NextViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_next, container, false)
 
         return root
     }

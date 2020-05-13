@@ -12,7 +12,7 @@ import com.nicholasnkk.shiftup.R
 
 class SettingsFragment : Fragment() {
 
-    private lateinit var notificationsViewModel: NotificationsViewModel
+    private lateinit var notificationsViewModel: SettingssViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,7 +20,7 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         notificationsViewModel =
-            ViewModelProviders.of(this).get(NotificationsViewModel::class.java)
+            ViewModelProviders.of(this).get(SettingssViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_settings, container, false)
         val textView: TextView = root.findViewById(R.id.text_settings)
         notificationsViewModel.text.observe(viewLifecycleOwner, Observer {

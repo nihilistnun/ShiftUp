@@ -12,7 +12,7 @@ import com.nicholasnkk.shiftup.R
 
 class EmployeesFragment : Fragment() {
 
-    private lateinit var dashboardViewModel: DashboardViewModel
+    private lateinit var dashboardViewModel: EmployeesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,7 +20,7 @@ class EmployeesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         dashboardViewModel =
-            ViewModelProviders.of(this).get(DashboardViewModel::class.java)
+            ViewModelProviders.of(this).get(EmployeesViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_employees, container, false)
         val textView: TextView = root.findViewById(R.id.text_employees)
         dashboardViewModel.text.observe(viewLifecycleOwner, Observer {

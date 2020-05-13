@@ -6,42 +6,172 @@
     android:layout_height="match_parent"
     tools:context=".ui.login.ui.shifts.ShiftsFragment">
 
-
-
-<!--    <TextView-->
-<!--        android:id="@+id/text_shifts"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="8dp"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:layout_marginEnd="8dp"-->
-<!--        android:textAlignment="center"-->
-<!--        android:textSize="20sp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        android:gravity="center_horizontal" />-->
-    <com.google.android.material.tabs.TabLayout
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.tabs.TabItem
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+            android:id="@+id/monday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Monday" />
+            android:padding="18dip"
+            android:text="@string/monday"
+            android:textColor="#000"
+            android:textSize="12sp" />
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tuesday" />
+            <TextView
+                android:id="@+id/monday_employees"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="18dip"
+                android:text="@string/none"
+                android:textColor="#000"
+                android:textSize="12sp" />
+        </TableRow>
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Wednesday" />
-    </com.google.android.material.tabs.TabLayout>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tuesday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="18dip"
+                android:text="@string/tuesday"
+                android:textColor="#000"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tuesday_employees"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="18dip"
+                android:text="@string/none"
+                android:textColor="#000"
+                android:textSize="12sp" />
+    </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/Wednesday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="18dip"
+                android:text="@string/wednesday"
+                android:textColor="#000"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/wednesday_employees"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="18dip"
+                android:text="@string/none"
+                android:textColor="#000"
+                android:textSize="12sp" />
+    </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/Thursday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="18dip"
+                android:text="@string/thursday"
+                android:textColor="#000"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/thursday_employees"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="18dip"
+                android:text="@string/none"
+                android:textColor="#000"
+                android:textSize="12sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/Friday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="18dip"
+                android:text="@string/friday"
+                android:textColor="#000"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/friday_employees"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="18dip"
+                android:text="@string/none"
+                android:textColor="#000"
+                android:textSize="12sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/Saturday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="18dip"
+                android:text="@string/saturday"
+                android:textColor="#000"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/saturday_employees"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="18dip"
+                android:text="@string/none"
+                android:textColor="#000"
+                android:textSize="12sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/Sunday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="18dip"
+                android:text="@string/sunday"
+                android:textColor="#000"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/sunday_employees"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="18dip"
+                android:text="@string/none"
+                android:textColor="#000"
+                android:textSize="12sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </TableRow>
+    </TableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

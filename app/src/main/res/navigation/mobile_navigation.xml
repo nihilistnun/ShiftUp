@@ -12,6 +12,12 @@
         tools:layout="@layout/fragment_shifts" />
 
     <fragment
+        android:id="@+id/navigation_next"
+        android:name="com.nicholasnkk.shiftup.ui.login.ui.next.NextFragment"
+        android:label="@string/title_next"
+        tools:layout="@layout/fragment_next" />
+
+    <fragment
         android:id="@+id/navigation_employees"
         android:name="com.nicholasnkk.shiftup.ui.login.ui.employees.EmployeesFragment"
         android:label="@string/title_employees"
