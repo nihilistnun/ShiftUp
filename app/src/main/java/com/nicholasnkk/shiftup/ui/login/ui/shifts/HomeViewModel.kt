@@ -1,4 +1,4 @@
-package com.nicholasnkk.shiftup.ui.login.ui.home
+package com.nicholasnkk.shiftup.ui.login.ui.shifts
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

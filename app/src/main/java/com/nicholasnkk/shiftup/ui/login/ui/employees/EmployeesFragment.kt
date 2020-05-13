@@ -1,4 +1,4 @@
-package com.nicholasnkk.shiftup.ui.login.ui.dashboard
+package com.nicholasnkk.shiftup.ui.login.ui.employees
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.nicholasnkk.shiftup.R
 
-class DashboardFragment : Fragment() {
+class EmployeesFragment : Fragment() {
 
     private lateinit var dashboardViewModel: DashboardViewModel
 
@@ -21,8 +21,8 @@ class DashboardFragment : Fragment() {
     ): View? {
         dashboardViewModel =
             ViewModelProviders.of(this).get(DashboardViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
-        val textView: TextView = root.findViewById(R.id.text_dashboard)
+        val root = inflater.inflate(R.layout.fragment_employees, container, false)
+        val textView: TextView = root.findViewById(R.id.text_employees)
         dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
