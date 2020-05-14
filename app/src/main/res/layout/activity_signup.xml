@@ -38,16 +38,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/prompt_password"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <Switch
+            android:id="@+id/accountType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/employee" />
 
         <Button
             android:id="@+id/signup_btn"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="32dp"
-            android:text="@string/action_register"/>
+            android:text="@string/action_register" />
 
         <RelativeLayout
             android:layout_width="match_parent"

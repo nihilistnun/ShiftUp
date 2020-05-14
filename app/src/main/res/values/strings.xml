@@ -31,4 +31,6 @@
     <string name="sunday">Sunday</string>
     <string name="add_shift">Add Shift</string>
     <string name="information">Information</string>
+    <string name="employee">Employee</string>
+    <string name="logout">Logout</string>
 </resources>
