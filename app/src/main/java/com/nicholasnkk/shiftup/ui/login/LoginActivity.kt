@@ -34,6 +34,14 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        auth = FirebaseAuth.getInstance()
+
+        if (auth.getCurrentUser() != null) {
+            val intent = Intent(this, MainActivity::class.java);
+            startActivity(intent);
+            finish();
+        }
+
         emailEt = findViewById(R.id.email_edt_text)
         passwordEt = findViewById(R.id.pass_edt_text)
 
@@ -42,7 +50,6 @@ class LoginActivity : AppCompatActivity() {
 
         resetPasswordTv = findViewById(R.id.reset_pass_tv)
 
-        auth = FirebaseAuth.getInstance()
 
         loginBtn.setOnClickListener {
             var email: String = emailEt.text.toString()

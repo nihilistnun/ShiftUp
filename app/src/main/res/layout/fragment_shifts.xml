@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,24 +7,22 @@
     tools:context=".ui.login.ui.shifts.ShiftsFragment">
 
     <TableLayout
+        android:id="@+id/tableLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
-            android:id="@+id/monday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="18dip"
-            android:text="@string/monday"
-            android:textColor="#000"
-            android:textSize="12sp" />
+                android:id="@+id/monday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="18dip"
+                android:text="@string/monday"
+                android:textColor="#000"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/monday_employees"
@@ -39,6 +37,7 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/tuesday"
                 android:layout_width="wrap_content"
@@ -56,11 +55,12 @@
                 android:text="@string/none"
                 android:textColor="#000"
                 android:textSize="12sp" />
-    </TableRow>
+        </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/Wednesday"
                 android:layout_width="wrap_content"
@@ -78,11 +78,12 @@
                 android:text="@string/none"
                 android:textColor="#000"
                 android:textSize="12sp" />
-    </TableRow>
+        </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/Thursday"
                 android:layout_width="wrap_content"
@@ -105,6 +106,7 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/Friday"
                 android:layout_width="wrap_content"
@@ -127,6 +129,7 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/Saturday"
                 android:layout_width="wrap_content"
@@ -149,6 +152,7 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/Sunday"
                 android:layout_width="wrap_content"
@@ -167,11 +171,17 @@
                 android:textColor="#000"
                 android:textSize="12sp" />
         </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </TableRow>
     </TableLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/information"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tableLayout"
+        android:layout_alignParentBottom="true"
+        android:padding="18dip"
+        android:text="@string/information"
+        android:textColor="#000"
+        android:textSize="12sp" />
+
+</RelativeLayout>
