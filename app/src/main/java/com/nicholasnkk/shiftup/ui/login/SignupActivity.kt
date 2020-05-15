@@ -4,15 +4,18 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Switch
 import android.widget.Toast
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.nicholasnkk.shiftup.R
 
 class SignupActivity : AppCompatActivity() {
+    private val TAG = SignupActivity::class.qualifiedName
 
     private lateinit var auth: FirebaseAuth
 
@@ -24,17 +27,20 @@ class SignupActivity : AppCompatActivity() {
 
     private lateinit var switch: Switch
 
+
+    private lateinit var db: FirebaseFirestore
+
     private val USER:String = "uid"
     private val MANAGER:String = "manager"
 
     private lateinit var user: String
-    private var manager: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
 
         auth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance();
 
         emailEt = findViewById(R.id.email_edt_text)
         passwordEt = findViewById(R.id.pass_edt_text)
@@ -62,7 +68,8 @@ class SignupActivity : AppCompatActivity() {
                     .addOnCompleteListener(this, OnCompleteListener { task ->
                         if (task.isSuccessful) {
                             user = auth.currentUser!!.uid
-                            manager = switch.isChecked
+                            if (switch.isChecked && !user.isNullOrEmpty())
+                                writeManager(Manager(user, true));
 
                             Toast.makeText(this, "Successfully Registered", Toast.LENGTH_LONG)
                                 .show()
@@ -81,6 +88,16 @@ class SignupActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+    }
+
+    private fun writeManager(manager: Manager) {
+        val managerMap = HashMap<String, Any>()
+        managerMap["uid"] = manager.uid
+        managerMap["owner"] = manager.owner
+        db.collection("users").document("managers")
+            .set(managerMap)
+            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
+            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
     }
 
 }
