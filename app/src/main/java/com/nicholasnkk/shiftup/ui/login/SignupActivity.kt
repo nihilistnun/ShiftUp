@@ -21,6 +21,8 @@ class SignupActivity : AppCompatActivity() {
 
     private lateinit var emailEt: EditText
     private lateinit var passwordEt: EditText
+    private lateinit var fNameEt: EditText
+    private lateinit var lNameEt: EditText
 
     private lateinit var signUpBtn: Button
     private lateinit var loginBtn: Button
@@ -30,10 +32,7 @@ class SignupActivity : AppCompatActivity() {
 
     private lateinit var db: FirebaseFirestore
 
-    private val USER:String = "uid"
-    private val MANAGER:String = "manager"
-
-    private lateinit var user: String
+    private var groupCodes: ArrayList<String> = arrayListOf();
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,8 +41,21 @@ class SignupActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance();
 
+        //load group codes list
+        db.collection("groupCodes").get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                for (result in task.result!!) {
+                    groupCodes.add(result.id)
+                }
+            } else {
+                Log.d(TAG, "Cached get failed: ", task.exception)
+            }
+        }
+
         emailEt = findViewById(R.id.email_edt_text)
         passwordEt = findViewById(R.id.pass_edt_text)
+        fNameEt = findViewById(R.id.fName_edt_text)
+        lNameEt = findViewById(R.id.lName_edt_text)
 
         loginBtn = findViewById(R.id.login_btn)
         signUpBtn = findViewById(R.id.signup_btn)
@@ -60,17 +72,45 @@ class SignupActivity : AppCompatActivity() {
         signUpBtn.setOnClickListener {
             var email: String = emailEt.text.toString()
             var password: String = passwordEt.text.toString()
+            var fName: String = fNameEt.text.toString()
+            var lName: String = lNameEt.text.toString()
 
-            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(fName) || TextUtils.isEmpty(
+                    lName
+                )
+            ) {
                 Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_LONG).show()
             } else {
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, OnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            user = auth.currentUser!!.uid
-                            if (switch.isChecked && !user.isNullOrEmpty())
-                                writeManager(Manager(user, true));
-
+                            var user = auth.currentUser!!.uid
+                            //check if manager
+                            if (switch.isChecked && !user.isNullOrEmpty()) {
+                                //generate unique group code
+                                val groupCode: String = uniqueCode()
+                                writeGroupCode(GroupCode(groupCode, user))
+                                val employee = Employee(
+                                    user, groupCode, fName, lName,
+                                    manager = true,
+                                    owner = true
+                                )
+                                writeEmployee(employee)
+                                val employeeList: ArrayList<Employee> = arrayListOf(employee)
+                                writeGroup(
+                                    Group(
+                                        groupCode, user, employeeList, arrayListOf(),
+                                        arrayListOf()
+                                    )
+                                )
+                            } else
+                                writeEmployee(
+                                    Employee(
+                                        user, "000000", fName, lName,
+                                        manager = false,
+                                        owner = false
+                                    )
+                                )
                             Toast.makeText(this, "Successfully Registered", Toast.LENGTH_LONG)
                                 .show()
                             val intent = Intent(this, MainActivity::class.java)
@@ -90,14 +130,48 @@ class SignupActivity : AppCompatActivity() {
         }
     }
 
-    private fun writeManager(manager: Manager) {
-        val managerMap = HashMap<String, Any>()
-        managerMap["uid"] = manager.uid
-        managerMap["owner"] = manager.owner
-        db.collection("users").document("managers")
-            .set(managerMap)
+    private fun writeEmployee(employee: Employee) {
+        val employeeMap = HashMap<String, Any>()
+        employeeMap["uid"] = employee.uid
+        employeeMap["groupCode"] = employee.groupCode
+        employeeMap["firstName"] = employee.firstName
+        employeeMap["lastName"] = employee.lastName
+        employeeMap["manager"] = employee.manager
+        employeeMap["owner"] = employee.owner
+        db.collection("users").document(employee.uid)
+            .set(employeeMap)
             .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
             .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
     }
 
+    private fun writeGroupCode(groupCode: GroupCode) {
+        val groupCodeMap = HashMap<String, Any>()
+        groupCodeMap["groupCode"] = groupCode.groupCode
+        groupCodeMap["uid"] = groupCode.uid
+        db.collection("groupCodes").document(groupCode.groupCode.toString())
+            .set(groupCodeMap)
+            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
+            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+    }
+
+    private fun uniqueCode(): String {
+        var groupCode: String = (1..999999).random().toString().padStart(6, '0')
+        while (groupCodes.indexOf(groupCode) != -1)
+            groupCode = (1..999999).random().toString().padStart(6, '0')
+        Log.d(TAG, "generated $groupCode")
+        return groupCode
+    }
+
+    private fun writeGroup(group: Group) {
+        val groupMap = HashMap<String, Any>()
+        groupMap["groupCode"] = group.groupCode
+        groupMap["uid"] = group.uid
+        groupMap["employeeList"] = group.employeeList
+        groupMap["roleList"] = group.roleList
+        groupMap["rotaList"] = group.rotaList
+        db.collection("groups").document(group.groupCode)
+            .set(groupMap)
+            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
+            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+    }
 }

@@ -13,6 +13,9 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="or">OR</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
 
     <!--    nav bar-->
     <string name="title_shifts">Shifts</string>
@@ -32,5 +35,6 @@
     <string name="add_shift">Add Shift</string>
     <string name="information">Information</string>
     <string name="employee">Employee</string>
+
     <string name="logout">Logout</string>
 </resources>
