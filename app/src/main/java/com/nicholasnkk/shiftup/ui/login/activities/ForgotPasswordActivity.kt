@@ -1,4 +1,4 @@
-package com.nicholasnkk.shiftup.ui.login
+package com.nicholasnkk.shiftup.ui.login.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

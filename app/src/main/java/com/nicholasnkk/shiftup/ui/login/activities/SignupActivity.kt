@@ -1,4 +1,4 @@
-package com.nicholasnkk.shiftup.ui.login
+package com.nicholasnkk.shiftup.ui.login.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +13,9 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.nicholasnkk.shiftup.R
+import com.nicholasnkk.shiftup.ui.login.Employee
+import com.nicholasnkk.shiftup.ui.login.Group
+import com.nicholasnkk.shiftup.ui.login.GroupCode
 
 class SignupActivity : AppCompatActivity() {
     private val TAG = SignupActivity::class.qualifiedName
@@ -89,12 +92,18 @@ class SignupActivity : AppCompatActivity() {
                             if (switch.isChecked && !user.isNullOrEmpty()) {
                                 //generate unique group code
                                 val groupCode: String = uniqueCode()
-                                writeGroupCode(GroupCode(groupCode, user))
-                                val employee = Employee(
-                                    user, groupCode, fName, lName,
-                                    manager = true,
-                                    owner = true
+                                writeGroupCode(
+                                    GroupCode(
+                                        groupCode,
+                                        user
+                                    )
                                 )
+                                val employee =
+                                    Employee(
+                                        user, groupCode, fName, lName,
+                                        manager = true,
+                                        owner = true
+                                    )
                                 writeEmployee(employee)
                                 val employeeList: ArrayList<Employee> = arrayListOf(employee)
                                 writeGroup(
