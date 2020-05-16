@@ -1,4 +1,4 @@
-package com.nicholasnkk.shiftup.ui.login.activities
+package com.nicholasnkk.shiftup.activities
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView

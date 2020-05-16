@@ -1,4 +1,4 @@
-package com.nicholasnkk.shiftup.ui.login.fragments
+package com.nicholasnkk.shiftup.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +9,7 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.nicholasnkk.shiftup.R
-import com.nicholasnkk.shiftup.ui.login.activities.LoginActivity
+import com.nicholasnkk.shiftup.activities.LoginActivity
 
 class SettingsFragment : Fragment() {
 

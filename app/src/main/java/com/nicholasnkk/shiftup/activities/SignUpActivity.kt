@@ -1,4 +1,4 @@
-package com.nicholasnkk.shiftup.ui.login.activities
+package com.nicholasnkk.shiftup.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -13,12 +13,12 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.nicholasnkk.shiftup.R
-import com.nicholasnkk.shiftup.ui.login.Employee
-import com.nicholasnkk.shiftup.ui.login.Group
-import com.nicholasnkk.shiftup.ui.login.GroupCode
+import com.nicholasnkk.shiftup.Employee
+import com.nicholasnkk.shiftup.Group
+import com.nicholasnkk.shiftup.GroupCode
 
-class SignupActivity : AppCompatActivity() {
-    private val TAG = SignupActivity::class.qualifiedName
+class SignUpActivity : AppCompatActivity() {
+    private val TAG = SignUpActivity::class.qualifiedName
 
     private lateinit var auth: FirebaseAuth
 

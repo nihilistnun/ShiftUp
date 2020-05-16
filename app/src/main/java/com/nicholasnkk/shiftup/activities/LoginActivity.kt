@@ -1,4 +1,4 @@
-package com.nicholasnkk.shiftup.ui.login.activities
+package com.nicholasnkk.shiftup.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -64,7 +64,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         signupBtn.setOnClickListener{
-            val intent = Intent(this, SignupActivity::class.java)
+            val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
             finish()
         }

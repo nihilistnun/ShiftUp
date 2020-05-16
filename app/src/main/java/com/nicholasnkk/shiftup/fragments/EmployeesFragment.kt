@@ -1,4 +1,4 @@
-package com.nicholasnkk.shiftup.ui.login.fragments
+package com.nicholasnkk.shiftup.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
