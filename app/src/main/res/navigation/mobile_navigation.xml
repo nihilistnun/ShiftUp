@@ -18,10 +18,10 @@
         tools:layout="@layout/fragment_next" />
 
     <fragment
-        android:id="@+id/navigation_employees"
-        android:name="com.nicholasnkk.shiftup.fragments.EmployeesFragment"
-        android:label="@string/title_employees"
-        tools:layout="@layout/fragment_employees" />
+        android:id="@+id/navigation_group"
+        android:name="com.nicholasnkk.shiftup.fragments.GroupFragment"
+        android:label="@string/title_group"
+        tools:layout="@layout/fragment_join" />
 
     <fragment
         android:id="@+id/navigation_settings"

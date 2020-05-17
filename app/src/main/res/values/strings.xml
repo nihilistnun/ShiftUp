@@ -20,7 +20,7 @@
     <!--    nav bar-->
     <string name="title_shifts">Shifts</string>
     <string name="title_next">Next</string>
-    <string name="title_employees">Employees</string>
+    <string name="title_group">Group</string>
     <string name="title_settings">Settings</string>
 
     <!--    table things-->
@@ -34,9 +34,19 @@
     <string name="sunday">Sunday</string>
     <string name="add_shift">Add Shift</string>
     <string name="information">Information</string>
-    <string name="employee">Employee</string>
+    <string name="Employee">Employee</string>
 
     <string name="logout">Logout</string>
     <string name="group_code">Group code</string>
     <string name="join">Join</string>
+    <string name="leave_group">Leave group</string>
+    <string name="group_position">Group Position</string>
+    <string name="employee_name">Employee Name</string>
+    <string name="code_template">Group code:</string>
+    <string name="copy_to_clipboard">Copy to clipboard</string>
+    <string name="members">Members:</string>
+    <string name="roles">Roles:</string>
+    <string name="add_role">Add role</string>
+    <string name="role_name">Role name</string>
+    <string name="role_description">Role description</string>
 </resources>

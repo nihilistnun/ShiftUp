@@ -12,9 +12,9 @@
         android:title="@string/title_next" />
 
     <item
-        android:id="@+id/navigation_employees"
+        android:id="@+id/navigation_group"
         android:icon="@drawable/ic_employees"
-        android:title="@string/title_employees" />
+        android:title="@string/title_group" />
 
     <item
         android:id="@+id/navigation_settings"

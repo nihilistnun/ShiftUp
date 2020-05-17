@@ -105,13 +105,7 @@ class SignUpActivity : AppCompatActivity() {
                                         owner = true
                                     )
                                 writeEmployee(employee)
-                                val employeeList: ArrayList<Employee> = arrayListOf(employee)
-                                writeGroup(
-                                    Group(
-                                        groupCode, user, employeeList, arrayListOf(),
-                                        arrayListOf()
-                                    )
-                                )
+                                writeGroup(groupCode, employee)
                             } else
                                 writeEmployee(
                                     Employee(
@@ -149,8 +143,8 @@ class SignUpActivity : AppCompatActivity() {
         employeeMap["owner"] = employee.owner
         db.collection("users").document(employee.uid)
             .set(employeeMap)
-            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
-            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+            .addOnSuccessListener { Log.d(TAG, "Employee successfully written!") }
+            .addOnFailureListener { e -> Log.w(TAG, "Error writing employee", e) }
     }
 
     private fun writeGroupCode(groupCode: GroupCode) {
@@ -159,8 +153,8 @@ class SignUpActivity : AppCompatActivity() {
         groupCodeMap["uid"] = groupCode.uid
         db.collection("groupCodes").document(groupCode.groupCode.toString())
             .set(groupCodeMap)
-            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
-            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+            .addOnSuccessListener { Log.d(TAG, "Group code successfully written!") }
+            .addOnFailureListener { e -> Log.w(TAG, "Error writing group code", e) }
     }
 
     private fun uniqueCode(): String {
@@ -171,16 +165,29 @@ class SignUpActivity : AppCompatActivity() {
         return groupCode
     }
 
-    private fun writeGroup(group: Group) {
+    private fun writeGroup(groupCode: String, employee: Employee) {
         val groupMap = HashMap<String, Any>()
-        groupMap["groupCode"] = group.groupCode
-        groupMap["uid"] = group.uid
-        groupMap["employeeList"] = group.employeeList
-        groupMap["roleList"] = group.roleList
-        groupMap["rotaList"] = group.rotaList
-        db.collection("groups").document(group.groupCode)
+        groupMap["roleNumber"] = 0
+        db.collection("groups").document(groupCode)
             .set(groupMap)
-            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
-            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+            .addOnSuccessListener {
+                Log.d(TAG, "Group successfully written!")
+                writeGroupEmployee(groupCode, employee)
+            }
+            .addOnFailureListener { e -> Log.w(TAG, "Error writing group", e) }
+    }
+
+    private fun writeGroupEmployee(groupCode: String, employee: Employee) {
+        val employeeMap = HashMap<String, Any>()
+        employeeMap["uid"] = employee.uid
+        employeeMap["groupCode"] = employee.groupCode
+        employeeMap["firstName"] = employee.firstName
+        employeeMap["lastName"] = employee.lastName
+        employeeMap["manager"] = employee.manager
+        employeeMap["owner"] = employee.owner
+        db.collection("groups").document(groupCode).collection("employees").document(employee.uid)
+            .set(employeeMap)
+            .addOnSuccessListener { Log.d(TAG, "Group employee successfully written!") }
+            .addOnFailureListener { e -> Log.w(TAG, "Error writing group employee", e) }
     }
 }

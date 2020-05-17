@@ -1,8 +1,11 @@
 package com.nicholasnkk.shiftup.activities
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -10,8 +13,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.nicholasnkk.shiftup.*
 
@@ -25,8 +26,12 @@ class MainActivity : AppCompatActivity() {
     lateinit var user: Employee
     var hasGroup: Boolean = false
     lateinit var group: Group
+    var groupEmployees: ArrayList<Employee> = arrayListOf();
+    var groupShifts: ArrayList<Shift> = arrayListOf();
+    var groupRoles: ArrayList<Role> = arrayListOf();
     var groupCodes: ArrayList<String> = arrayListOf();
 
+    var restLoaded: Boolean = false;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,24 +48,34 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadRest() {
-        setContentView(R.layout.activity_main)
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
-        val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_shifts,
-                R.id.navigation_next,
-                R.id.navigation_employees,
-                R.id.navigation_settings
+        if (!restLoaded) {
+            restLoaded = true
+            setContentView(R.layout.activity_main)
+            val navView: BottomNavigationView = findViewById(R.id.nav_view)
+            val navController = findNavController(R.id.nav_host_fragment)
+            // Passing each menu ID as a set of Ids because each
+            // menu should be considered as top level destinations.
+            val appBarConfiguration = AppBarConfiguration(
+                setOf(
+                    R.id.navigation_shifts,
+                    R.id.navigation_next,
+                    R.id.navigation_group,
+                    R.id.navigation_settings
+                )
             )
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+            setupActionBarWithNavController(navController, appBarConfiguration)
+            navView.setupWithNavController(navController)
+        } else {
+            val navView: BottomNavigationView = findViewById(R.id.nav_view)
+            navView.selectedItemId = navView.selectedItemId
+        }
     }
 
-    private fun loadDB() {
+    fun loadDB() {
+        groupEmployees.clear()
+        groupShifts.clear()
+        groupRoles.clear()
+        groupCodes.clear()
         loadGroupCodes()
         loadUser()
     }
@@ -73,7 +88,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 Log.d(TAG, "Group codes loaded")
             } else {
-                Log.d(TAG, "Cached get failed: ", task.exception)
+                Log.d(TAG, "Group codes get failed: ", task.exception)
             }
         }
     }
@@ -92,43 +107,80 @@ class MainActivity : AppCompatActivity() {
                         data["owner"] as Boolean
                     )
                     Log.d(TAG, "User loaded")
-                    if (user.groupCode != "000000") {
-                        hasGroup = true;
-                        loadGroup()
-                    }
+                    hasGroup = (user.groupCode != "000000")
                 }
             } else {
                 Log.d(TAG, "user load failed: ", task.exception)
             }
+            if (hasGroup)
+                loadGroup()
+            else
+                loadRest()
         }
     }
 
     private fun loadGroup() {
-        db.collection("groups").document(user.groupCode).get().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                var doc: DocumentSnapshot? = task.result
-                if (doc != null) {
-                    group = doc.toObject(Group::class.java)!!
-                }
-                Log.d(TAG, "Group : $group")
-//                var data = task.result?.data
-//                if (!data.isNullOrEmpty()) {
-//                    var employeeList: ArrayList<Employee> = arrayListOf()
-//                    var roleList: ArrayList<Role> = arrayListOf()
-//                    var rotaList: ArrayList<Rota> = arrayListOf()
-//                    group = Group(
-//                        data["groupCode"] as String,
-//                        data["uid"] as String,
-//                        data["employeeList"] as java.util.ArrayList<Employee>,
-//                        data["roleList"] as java.util.ArrayList<Role>,
-//                        data["rotaList"] as java.util.ArrayList<Rota>
-//                    )
-//                }
-                Log.d(TAG, "Group loaded")
-                loadRest()
-            } else {
-                Log.d(TAG, "user load failed: ", task.exception)
-            }
+        db.collection("groups").document(user.groupCode).get().addOnSuccessListener { document ->
+            if (document.exists()) {
+                Log.d(TAG, "Group document data: ${document.data}")
+                group = document.toObject(Group::class.java)!!
+                Log.d(TAG, "Group data: ${group.toString()}")
+            } else
+                Log.d(TAG, "No such document")
+            loadEmployees()
+        }.addOnFailureListener { exception ->
+            Log.d(TAG, "Group get failed with ", exception)
+            loadEmployees()
         }
+    }
+
+    private fun loadEmployees() {
+        db.collection("groups").document(user.groupCode).collection("employees").get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    Log.d(TAG, "${document.id} => ${document.data}")
+                    groupEmployees.add(document.toObject(Employee::class.java))
+                    Log.d(TAG, "Group employee data: ${groupEmployees.toString()}")
+                }
+                loadRoles()
+            }.addOnFailureListener { exception ->
+                Log.d(TAG, "Group employees get failed with ", exception)
+                loadRoles()
+            }
+    }
+
+    private fun loadRoles() {
+        db.collection("groups").document(user.groupCode).collection("roles").get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    Log.d(TAG, "${document.id} => ${document.data}")
+                    groupRoles.add(document.toObject(Role::class.java))
+                    Log.d(TAG, "Group roles data: ${groupRoles.toString()}")
+                }
+                loadShifts()
+            }.addOnFailureListener { exception ->
+                Log.d(TAG, "Role get failed with ", exception)
+                loadShifts()
+            }
+    }
+
+    private fun loadShifts() {
+        db.collection("groups").document(user.groupCode).collection("shifts").get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    Log.d(TAG, "${document.id} => ${document.data}")
+                    groupShifts.add(document.toObject(Shift::class.java))
+                    Log.d(TAG, "Group shift data: ${groupShifts.toString()}")
+                }
+                loadRest()
+            }.addOnFailureListener { exception ->
+                Log.d(TAG, "Shift get failed with ", exception)
+                loadRest()
+            }
+    }
+
+    fun hideKeyboard(view: View) {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }
