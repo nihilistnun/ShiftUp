@@ -1,7 +1,6 @@
 package com.nicholasnkk.shiftup
 
 import java.util.*
-import kotlin.collections.ArrayList
 
 data class Employee(var uid:String, var groupCode:String, var firstName:String, var lastName:String, var manager:Boolean, var owner:Boolean)
 

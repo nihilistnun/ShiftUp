@@ -10,8 +10,11 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.nicholasnkk.shiftup.R
 import com.nicholasnkk.shiftup.activities.LoginActivity
+import com.nicholasnkk.shiftup.activities.MainActivity
 
 class SettingsFragment : Fragment() {
+    private val TAG = SettingsFragment::class.qualifiedName
+    private lateinit var main: MainActivity
 
     private lateinit var logoutBtn: Button
 
@@ -21,6 +24,7 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_settings, container, false)
+        main = activity as MainActivity
 
         logoutBtn = root.findViewById(R.id.logoutButton)
         logoutBtn.setOnClickListener{
