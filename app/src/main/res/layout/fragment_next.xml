@@ -6,11 +6,15 @@
     android:layout_marginBottom="?android:attr/actionBarSize"
     tools:context=".fragments.NextFragment">
 
-    <TableLayout
+    <HorizontalScrollView
         android:id="@+id/tableLayout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true">
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <TableRow
             android:layout_width="match_parent"
@@ -21,6 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="18dip"
+                android:textStyle="bold"
                 android:text="@string/monday"
                 android:textColor="#000"
                 android:textSize="12sp" />
@@ -44,6 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="18dip"
+                android:textStyle="bold"
                 android:text="@string/tuesday"
                 android:textColor="#000"
                 android:textSize="12sp" />
@@ -67,6 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="18dip"
+                android:textStyle="bold"
                 android:text="@string/wednesday"
                 android:textColor="#000"
                 android:textSize="12sp" />
@@ -90,6 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="18dip"
+                android:textStyle="bold"
                 android:text="@string/thursday"
                 android:textColor="#000"
                 android:textSize="12sp" />
@@ -113,6 +121,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="18dip"
+                android:textStyle="bold"
                 android:text="@string/friday"
                 android:textColor="#000"
                 android:textSize="12sp" />
@@ -136,6 +145,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="18dip"
+                android:textStyle="bold"
                 android:text="@string/saturday"
                 android:textColor="#000"
                 android:textSize="12sp" />
@@ -159,6 +169,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="18dip"
+                android:textStyle="bold"
                 android:text="@string/sunday"
                 android:textColor="#000"
                 android:textSize="12sp" />
@@ -173,6 +184,8 @@
                 android:textSize="12sp" />
         </TableRow>
     </TableLayout>
+
+    </HorizontalScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"

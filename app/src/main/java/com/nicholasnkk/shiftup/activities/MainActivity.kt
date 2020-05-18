@@ -247,7 +247,7 @@ class MainActivity : AppCompatActivity(), RoleDialog.DialogListener, ShiftDialog
         var add: Boolean = true
         lateinit var target: Shift
         for (s in groupShifts) {
-            if (shift.date == s.date) {//update
+            if (shift.date == s.date && shift.uid == s.uid) {//update
                 add = false
                 target = s
             }
@@ -267,8 +267,9 @@ class MainActivity : AppCompatActivity(), RoleDialog.DialogListener, ShiftDialog
                     loadDB()
                 }
         } else {
-            db.collection("groups").document(user.groupCode).collection("shifts").document(target.sid)
-                .update("rid",shift.rid)
+            db.collection("groups").document(user.groupCode).collection("shifts")
+                .document(target.sid)
+                .update("rid", shift.rid)
                 .addOnSuccessListener {
                     Log.d(TAG, "Shift successfully updated!")
                     loadDB()
@@ -285,7 +286,7 @@ class MainActivity : AppCompatActivity(), RoleDialog.DialogListener, ShiftDialog
         var delete: Boolean = false
         lateinit var target: Shift
         for (s in groupShifts) {
-            if (shift.date == s.date) {//delete
+            if (shift.date == s.date && shift.uid == s.uid ) {//delete
                 delete = true
                 target = s
             }
