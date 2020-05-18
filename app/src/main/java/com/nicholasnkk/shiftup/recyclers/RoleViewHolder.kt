@@ -1,12 +1,10 @@
 package com.nicholasnkk.shiftup.recyclers
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.nicholasnkk.shiftup.Employee
 import com.nicholasnkk.shiftup.R
 import com.nicholasnkk.shiftup.Role
 

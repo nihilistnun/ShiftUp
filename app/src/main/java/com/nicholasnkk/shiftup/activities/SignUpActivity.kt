@@ -13,7 +13,6 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.nicholasnkk.shiftup.Employee
-import com.nicholasnkk.shiftup.Group
 import com.nicholasnkk.shiftup.GroupCode
 import com.nicholasnkk.shiftup.R
 

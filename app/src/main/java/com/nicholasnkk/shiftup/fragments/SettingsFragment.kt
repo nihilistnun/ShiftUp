@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
@@ -17,6 +18,8 @@ import com.nicholasnkk.shiftup.activities.MainActivity
 class SettingsFragment : Fragment() {
     private val TAG = SettingsFragment::class.qualifiedName
     private lateinit var main: MainActivity
+
+    private lateinit var userMessageView: TextView
 
     private lateinit var logoutBtn: Button
     private lateinit var leaveBtn: Button
@@ -29,8 +32,12 @@ class SettingsFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_settings, container, false)
         main = activity as MainActivity
 
+        userMessageView = root.findViewById(R.id.userMessage)
         logoutBtn = root.findViewById(R.id.logoutButton)
         leaveBtn = root.findViewById(R.id.leaveButton)
+
+        val message:String ="You are logged in as " + main.user.firstName + " " + main.user.lastName
+        userMessageView.text = message
 
         if (main.hasGroup)
             leaveBtn.visibility = View.VISIBLE

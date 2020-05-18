@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.nicholasnkk.shiftup.*
 
-class MainActivity : AppCompatActivity(), RoleDialog.DialogListener {
+class MainActivity : AppCompatActivity(), RoleDialog.DialogListener, ShiftDialog.DialogListener {
     private val TAG = MainActivity::class.qualifiedName
 
     private lateinit var auth: FirebaseAuth
@@ -231,6 +231,25 @@ class MainActivity : AppCompatActivity(), RoleDialog.DialogListener {
             }
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error writing role", e)
+                loadDB()
+            }
+    }
+
+    override fun onFinishEditDialog(shift: Shift) {
+        Log.d(TAG, "Shift to add: $shift")
+        //add shift
+        addShift(shift)
+    }
+
+    private fun addShift(shift: Shift) {
+        db.collection("groups").document(user.groupCode).collection("shifts").add(shift)
+            .addOnSuccessListener {
+                Log.d(TAG, "Shift successfully written!")
+                loadDB()
+                Toast.makeText(this, "Shift added", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error writing shift", e)
                 loadDB()
             }
     }
