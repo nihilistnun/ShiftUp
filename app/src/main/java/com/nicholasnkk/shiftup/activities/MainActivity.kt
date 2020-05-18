@@ -235,22 +235,75 @@ class MainActivity : AppCompatActivity(), RoleDialog.DialogListener, ShiftDialog
             }
     }
 
-    override fun onFinishEditDialog(shift: Shift) {
+    override fun onFinishEditDialog(shift: Shift, delete: Boolean) {
         Log.d(TAG, "Shift to add: $shift")
-        //add shift
-        addShift(shift)
+        if (delete)//delete shift
+            deleteShift(shift)
+        else//add shift
+            addShift(shift)
     }
 
     private fun addShift(shift: Shift) {
-        db.collection("groups").document(user.groupCode).collection("shifts").add(shift)
-            .addOnSuccessListener {
-                Log.d(TAG, "Shift successfully written!")
-                loadDB()
-                Toast.makeText(this, "Shift added", Toast.LENGTH_SHORT).show()
+        var add: Boolean = true
+        lateinit var target: Shift
+        for (s in groupShifts) {
+            if (shift.date == s.date) {//update
+                add = false
+                target = s
             }
-            .addOnFailureListener { e ->
-                Log.w(TAG, "Error writing shift", e)
-                loadDB()
+        }
+        if (add) {
+            db.collection("groups").document(user.groupCode).collection("shifts").add(shift)
+                .addOnSuccessListener { doc ->
+                    shift.sid = doc.id
+                    db.collection("groups").document(user.groupCode).collection("shifts")
+                        .document(shift.sid).update("sid", shift.sid)
+                    Log.d(TAG, "Shift successfully written!")
+                    loadDB()
+                    Toast.makeText(this, "Shift added", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "Error writing shift", e)
+                    loadDB()
+                }
+        } else {
+            db.collection("groups").document(user.groupCode).collection("shifts").document(target.sid)
+                .update("rid",shift.rid)
+                .addOnSuccessListener {
+                    Log.d(TAG, "Shift successfully updated!")
+                    loadDB()
+                    Toast.makeText(this, "Shift updated", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "Error updating shift", e)
+                    loadDB()
+                }
+        }
+    }
+
+    private fun deleteShift(shift: Shift) {
+        var delete: Boolean = false
+        lateinit var target: Shift
+        for (s in groupShifts) {
+            if (shift.date == s.date) {//delete
+                delete = true
+                target = s
             }
+        }
+        if (delete) {
+            db.collection("groups").document(user.groupCode).collection("shifts")
+                .document(target.sid).delete()
+                .addOnSuccessListener {
+                    Log.d(TAG, "Shift successfully deleted!")
+                    loadDB()
+                    Toast.makeText(this, "Shift deleted", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "Error deleting shift", e)
+                    loadDB()
+                }
+        } else {
+            Toast.makeText(this, "Nothing to delete", Toast.LENGTH_SHORT).show()
+        }
     }
 }

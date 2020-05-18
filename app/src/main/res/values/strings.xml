@@ -69,4 +69,7 @@
     <string name="you_are_logged_in_as">You are logged in as</string>
     <string name="select_a_day">Select a day</string>
     <string name="select_a_role">Select a role</string>
+    <string name="delete_shift">Delete shift</string>
+    <string name="add">Add</string>
+    <string name="delete">Delete</string>
 </resources>

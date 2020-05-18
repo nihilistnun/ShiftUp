@@ -19,6 +19,7 @@ class NextFragment : Fragment() {
     private lateinit var main: MainActivity
 
     private lateinit var addShiftBtn: Button
+    private lateinit var deleteShiftBtn: Button
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,10 +30,18 @@ class NextFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_next, container, false)
 
         addShiftBtn = root.findViewById(R.id.addShift)
+        deleteShiftBtn = root.findViewById(R.id.deleteShift)
 
         addShiftBtn.setOnClickListener{
             //add shift dialog
             val dialogFragment = ShiftDialog()
+            dialogFragment.show(main.supportFragmentManager, "dialog")
+        }
+
+        deleteShiftBtn.setOnClickListener{
+            //add shift dialog
+            val dialogFragment = ShiftDialog()
+            dialogFragment.toogleDelete()
             dialogFragment.show(main.supportFragmentManager, "dialog")
         }
         return root
