@@ -19,7 +19,7 @@
 
     <!--    nav bar-->
     <string name="title_shifts">Shifts</string>
-    <string name="title_next">Next</string>
+    <string name="title_next">Next Week</string>
     <string name="title_group">Group</string>
     <string name="title_settings">Settings</string>
 
@@ -49,7 +49,7 @@
     <string name="add_role">Add role</string>
     <string name="role_name">Role name</string>
     <string name="role_description">Role description</string>
-    <string name="add_a_new_role">Add a new role</string>
+    <string name="role_info">Role information</string>
     <string name="save">Save</string>
     <string name="start_time">Start time</string>
     <string name="end_time">End time</string>

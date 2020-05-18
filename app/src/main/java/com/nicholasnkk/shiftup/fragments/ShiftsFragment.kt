@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.nicholasnkk.shiftup.R
 import com.nicholasnkk.shiftup.activities.MainActivity
+import com.nicholasnkk.shiftup.recyclers.RoleListAdapter
 
 class ShiftsFragment : Fragment() {
     private val TAG = ShiftsFragment::class.qualifiedName
@@ -21,5 +24,17 @@ class ShiftsFragment : Fragment() {
         main = activity as MainActivity
 
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // RecyclerView node initialized here
+        if (main.hasGroup) {
+            val roleRecycler: RecyclerView = view.findViewById(R.id.role_recycler_view)
+            roleRecycler.apply {
+                layoutManager = LinearLayoutManager(activity)
+                adapter = RoleListAdapter(main, main.groupRoles)
+            }
+        }
     }
 }

@@ -116,11 +116,13 @@ class GroupFragment : Fragment(){
             val employeeRecycler: RecyclerView = view.findViewById(R.id.employee_recycler_view)
             val roleRecycler: RecyclerView = view.findViewById(R.id.role_recycler_view)
 
+            employeeRecycler.isNestedScrollingEnabled = false
             employeeRecycler.apply {
                 layoutManager = LinearLayoutManager(activity)
                 adapter = EmployeeListAdapter(main.groupEmployees)
             }
 
+            roleRecycler.isNestedScrollingEnabled = false
             roleRecycler.apply {
                 layoutManager = LinearLayoutManager(activity)
                 adapter = RoleListAdapter(main, main.groupRoles)
