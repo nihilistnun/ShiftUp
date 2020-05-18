@@ -123,7 +123,7 @@ class GroupFragment : Fragment(){
 
             roleRecycler.apply {
                 layoutManager = LinearLayoutManager(activity)
-                adapter = RoleListAdapter(main.groupRoles)
+                adapter = RoleListAdapter(main, main.groupRoles)
             }
         }
     }

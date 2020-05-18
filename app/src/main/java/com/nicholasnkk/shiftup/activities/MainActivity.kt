@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -180,11 +181,57 @@ class MainActivity : AppCompatActivity(), RoleDialog.DialogListener {
     }
 
     fun hideKeyboard(view: View) {
-        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-    override fun onFinishEditDialog(name: String, startTime: String, endTime: String, color: Int) {
-        Log.d(TAG,name + startTime + endTime + color.toString())
+    override fun onFinishEditDialog(
+        rid: String,
+        name: String,
+        startTime: String,
+        endTime: String,
+        color: Int
+    ) {
+        val role: Role = Role(rid, name, startTime, endTime, color)
+        Log.d(TAG, "Role to add: $role")
+        //increment roleNumber
+        //add to roles
+        if (rid.isEmpty())
+            incrementRoleNumber(role)
+        else //save role
+            addRole(role)
+    }
+
+    private fun incrementRoleNumber(role: Role) {
+        db.collection("groups").document(user.groupCode).get().addOnSuccessListener { document ->
+            if (document.exists()) {
+                Log.d(TAG, "Group document data: ${document.data}")
+                group = document.toObject(Group::class.java)!!
+                Log.d(TAG, "Group data: $group")
+                db.collection("groups").document(user.groupCode)
+                    .update("roleNumber", group.roleNumber + 1)
+                role.rid = group.roleNumber.toString()
+                addRole(role)
+            } else
+                Log.d(TAG, "No such document")
+        }.addOnFailureListener { exception ->
+            Log.d(TAG, "Increment role failed with ", exception)
+        }
+    }
+
+    private fun addRole(role: Role) {
+        db.collection("groups").document(user.groupCode).collection("roles")
+            .document(role.rid)
+            .set(role)
+            .addOnSuccessListener {
+                Log.d(TAG, "Role successfully written!")
+                loadDB()
+                Toast.makeText(this, "Role saved", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error writing role", e)
+                loadDB()
+            }
     }
 }

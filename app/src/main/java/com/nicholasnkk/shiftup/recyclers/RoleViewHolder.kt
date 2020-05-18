@@ -21,6 +21,13 @@ class RoleViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
         mYearView = itemView.findViewById(R.id.list_description)
     }
 
+    fun listen(event: (position: Int, type: Int) -> Unit): RoleViewHolder {
+        itemView.setOnClickListener {
+            event.invoke(adapterPosition, itemViewType)
+        }
+        return this
+    }
+
     @SuppressLint("Range")
     fun bind(role: Role) {
         mTitleView?.text = role.name
