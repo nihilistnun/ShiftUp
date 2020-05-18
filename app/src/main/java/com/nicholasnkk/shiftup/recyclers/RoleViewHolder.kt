@@ -24,11 +24,11 @@ class RoleViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
     @SuppressLint("Range")
     fun bind(role: Role) {
         mTitleView?.text = role.name
-        mTitleView?.setTextColor(Color.parseColor(role.color))
+        mTitleView?.setTextColor(role.color)
         //parse time to string format later
         val description:String = role.startTime + " - " + role.endTime
         mYearView?.text =  description
-        mYearView?.setTextColor(Color.parseColor(role.color))
+        mYearView?.setTextColor(role.color)
     }
 
 }

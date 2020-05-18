@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.nicholasnkk.shiftup.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), RoleDialog.DialogListener {
     private val TAG = MainActivity::class.qualifiedName
 
     private lateinit var auth: FirebaseAuth
@@ -182,5 +182,9 @@ class MainActivity : AppCompatActivity() {
     fun hideKeyboard(view: View) {
         val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    override fun onFinishEditDialog(name: String, startTime: String, endTime: String, color: Int) {
+        Log.d(TAG,name + startTime + endTime + color.toString())
     }
 }

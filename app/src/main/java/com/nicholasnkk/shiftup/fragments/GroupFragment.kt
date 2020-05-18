@@ -3,6 +3,7 @@ package com.nicholasnkk.shiftup.fragments
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -13,16 +14,19 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.graphics.toColor
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.nicholasnkk.shiftup.recyclers.EmployeeListAdapter
 import com.nicholasnkk.shiftup.R
+import com.nicholasnkk.shiftup.RoleDialog
 import com.nicholasnkk.shiftup.activities.MainActivity
+import com.nicholasnkk.shiftup.recyclers.EmployeeListAdapter
 import com.nicholasnkk.shiftup.recyclers.RoleListAdapter
+import com.pes.androidmaterialcolorpickerdialog.ColorPicker
 
 
-class GroupFragment : Fragment() {
+class GroupFragment : Fragment(){
     private val TAG = GroupFragment::class.qualifiedName
     private lateinit var main: MainActivity
 
@@ -58,7 +62,8 @@ class GroupFragment : Fragment() {
             }
 
             addBtn.setOnClickListener {
-
+                val dialogFragment = RoleDialog()
+                dialogFragment.show(main.supportFragmentManager, "dialog")
             }
 
             return root
@@ -133,4 +138,5 @@ class GroupFragment : Fragment() {
             .addOnSuccessListener { Log.d(TAG, "Group employee successfully written!") }
             .addOnFailureListener { e -> Log.w(TAG, "Error writing group employee", e) }
     }
+
 }

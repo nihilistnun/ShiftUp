@@ -49,4 +49,11 @@
     <string name="add_role">Add role</string>
     <string name="role_name">Role name</string>
     <string name="role_description">Role description</string>
+    <string name="add_a_new_role">Add a new role</string>
+    <string name="add">Add</string>
+    <string name="start_time">Start time</string>
+    <string name="end_time">End time</string>
+    <string name="change_colour">Change colour</string>
+    <string name="start_time_template">Start time:</string>
+    <string name="edit">Edit</string>
 </resources>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_a_new_role" />
+
+
+    <EditText
+        android:id="@+id/dialogRoleName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/role_name"
+        android:inputType="numberDecimal"
+        android:autofillHints="@string/role_name" />
+
+
+
+        <EditText
+        android:id="@+id/dialogRoleStartTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="time"
+        android:hint="@string/start_time"
+        android:autofillHints="@string/start_time" />
+
+    <EditText
+        android:id="@+id/dialogRoleEndTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="time"
+        android:hint="@string/end_time"
+        android:autofillHints="@string/end_time" />
+
+    <Button
+        android:id="@+id/dialogSelectColorButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/change_colour" />
+
+    <Button
+        android:id="@+id/dialogAddButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add" />
+    </LinearLayout>
+</ScrollView>
